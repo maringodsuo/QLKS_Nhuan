@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLKS" Class="CSDLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Nhuan;Initial Catalog=QLKS;Integrated Security=True" SettingsObjectName="QLKS.Properties.Settings" SettingsPropertyName="QLKSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ChucDanh" Member="ChucDanhs">
+    <Type Name="ChucDanh">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Roles" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ChucDanh_NhanVien" Member="NhanViens" ThisKey="ID" OtherKey="IDChucDanh" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TinhTrangPhong" Member="TinhTrangPhongs">
+    <Type Name="TinhTrangPhong">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="TinhTrangPhong_Phong" Member="Phongs" ThisKey="ID" OtherKey="IDTinhTrang" Type="Phong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DichVu" Member="DichVus">
+    <Type Name="DichVu">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoaDon" Member="HoaDons">
+    <Type Name="HoaDon">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IDThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDDichVu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDNhanVien" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="NhanVien_HoaDon" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="ID" Type="NhanVien" IsForeignKey="true" />
+      <Association Name="PhieuDichvu_HoaDon" Member="PhieuDichvu" ThisKey="IDDichVu" OtherKey="ID" Type="PhieuDichvu" IsForeignKey="true" />
+      <Association Name="PhieuThuePhong_HoaDon" Member="PhieuThuePhong" ThisKey="IDThue" OtherKey="ID" Type="PhieuThuePhong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhachHang" Member="KhachHangs">
+    <Type Name="KhachHang">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuocTich" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="KhachHang_PhieuThuePhong" Member="PhieuThuePhongs" ThisKey="ID" OtherKey="IDKhachHang" Type="PhieuThuePhong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoaiPhong" Member="LoaiPhongs">
+    <Type Name="LoaiPhong">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="SoGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoNguoiToiDaTrenGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="LoaiPhong_Phong" Member="Phongs" ThisKey="ID" OtherKey="IDLoai" Type="Phong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhanVien" Member="NhanViens">
+    <Type Name="NhanVien">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Matkhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDChucDanh" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="NhanVien_HoaDon" Member="HoaDons" ThisKey="ID" OtherKey="IDNhanVien" Type="HoaDon" />
+      <Association Name="NhanVien_PhieuDichvu" Member="PhieuDichvus" ThisKey="ID" OtherKey="IDNhanVien" Type="PhieuDichvu" />
+      <Association Name="NhanVien_PhieuThuePhong" Member="PhieuThuePhongs" ThisKey="ID" OtherKey="IDNhanVien" Type="PhieuThuePhong" />
+      <Association Name="ChucDanh_NhanVien" Member="ChucDanh" ThisKey="IDChucDanh" OtherKey="ID" Type="ChucDanh" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhieuDichvu" Member="PhieuDichvus">
+    <Type Name="PhieuDichvu">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IDPhieuThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDNhanVien" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="PhieuDichvu_HoaDon" Member="HoaDons" ThisKey="ID" OtherKey="IDDichVu" Type="HoaDon" />
+      <Association Name="NhanVien_PhieuDichvu" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="ID" Type="NhanVien" IsForeignKey="true" />
+      <Association Name="PhieuThuePhong_PhieuDichvu" Member="PhieuThuePhong" ThisKey="IDPhieuThue" OtherKey="ID" Type="PhieuThuePhong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhieuThuePhong" Member="PhieuThuePhongs">
+    <Type Name="PhieuThuePhong">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TienCoc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDNhanVien" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDPhong" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDKhachHang" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="PhieuThuePhong_HoaDon" Member="HoaDons" ThisKey="ID" OtherKey="IDThue" Type="HoaDon" />
+      <Association Name="PhieuThuePhong_PhieuDichvu" Member="PhieuDichvus" ThisKey="ID" OtherKey="IDPhieuThue" Type="PhieuDichvu" />
+      <Association Name="NhanVien_PhieuThuePhong" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="ID" Type="NhanVien" IsForeignKey="true" />
+      <Association Name="KhachHang_PhieuThuePhong" Member="KhachHang" ThisKey="IDKhachHang" OtherKey="ID" Type="KhachHang" IsForeignKey="true" />
+      <Association Name="Phong_PhieuThuePhong" Member="Phong" ThisKey="IDPhong" OtherKey="ID" Type="Phong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Phong" Member="Phongs">
+    <Type Name="Phong">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IDLoai" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IDTinhTrang" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Phong_PhieuThuePhong" Member="PhieuThuePhongs" ThisKey="ID" OtherKey="IDPhong" Type="PhieuThuePhong" />
+      <Association Name="LoaiPhong_Phong" Member="LoaiPhong" ThisKey="IDLoai" OtherKey="ID" Type="LoaiPhong" IsForeignKey="true" />
+      <Association Name="TinhTrangPhong_Phong" Member="TinhTrangPhong" ThisKey="IDTinhTrang" OtherKey="ID" Type="TinhTrangPhong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.TimLoaiPhong" Method="TimLoaiPhong">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimLoaiPhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="SoGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoNguoiToiDaTrenGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteLoaiPhong" Method="DeleteLoaiPhong">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertLoaiPhong" Method="InsertLoaiPhong">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Sogiuong" Parameter="sogiuong" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Songuoi" Parameter="songuoi" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadLoaiPhong" Method="LoadLoaiPhong">
+    <ElementType Name="LoadLoaiPhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="SoGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoNguoiToiDaTrenGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateLoaiPhong" Method="UpdateLoaiPhong">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Sogiuong" Parameter="sogiuong" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Songuoi" Parameter="songuoi" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadTinhTrang" Method="LoadTinhTrang">
+    <ElementType Name="LoadTinhTrangResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimTinhTrangPhong" Method="TimTinhTrangPhong">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimTinhTrangPhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteTinhTrang" Method="DeleteTinhTrang">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateTinhTrang" Method="UpdateTinhTrang">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InserTinhTrang" Method="InserTinhTrang">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteDichVu" Method="DeleteDichVu">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadDichVu" Method="LoadDichVu">
+    <ElementType Name="LoadDichVuResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InserDichVu" Method="InserDichVu">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateDichVu" Method="UpdateDichVu">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.TimDichVu" Method="TimDichVu">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimDichVuResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteKhachHang" Method="DeleteKhachHang">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateKhachHang" Method="UpdateKhachHang">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CMND" Parameter="cMND" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QuocTich" Parameter="quocTich" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="GhiChu" Parameter="ghiChu" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertKhachHang" Method="InsertKhachHang">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CMND" Parameter="cMND" Type="System.Int32" DbType="Int" />
+    <Parameter Name="QuocTich" Parameter="quocTich" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="GhiChu" Parameter="ghiChu" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadKhachHang" Method="LoadKhachHang">
+    <ElementType Name="LoadKhachHangResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuocTich" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimKhachHang" Method="TimKhachHang">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimKhachHangResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuocTich" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteChucDanh" Method="DeleteChucDanh">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InserChucDanh" Method="InserChucDanh">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Roles" Parameter="roles" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadChucDanh" Method="LoadChucDanh">
+    <ElementType Name="LoadChucDanhResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Roles" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimChucDanh" Method="TimChucDanh">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimChucDanhResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Roles" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateChucDanh" Method="UpdateChucDanh">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Roles" Parameter="roles" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteNhanVien" Method="DeleteNhanVien">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertNhanVien" Method="InsertNhanVien">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Matkhau" Parameter="matkhau" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="IDChucDanh" Parameter="iDChucDanh" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadNhanVien" Method="LoadNhanVien">
+    <ElementType Name="LoadNhanVienResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Matkhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDChucDanh" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimNhanVien" Method="TimNhanVien">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimNhanVienResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Matkhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDChucDanh" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateNhanVien" Method="UpdateNhanVien">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Matkhau" Parameter="matkhau" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="IDChucDanh" Parameter="iDChucDanh" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InserPhong" Method="InserPhong">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="IDLoai" Parameter="iDLoai" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDTinhTrang" Parameter="iDTinhTrang" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeletePhong" Method="DeletePhong">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdatePhong" Method="UpdatePhong">
+    <Parameter Name="Ten" Parameter="ten" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="IDLoai" Parameter="iDLoai" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDTinhTrang" Parameter="iDTinhTrang" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadPhong" Method="LoadPhong">
+    <ElementType Name="LoadPhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="LoaiPhong" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimPhong" Method="TimPhong">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimPhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="LoaiPhong" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.LoadThuePhong" Method="LoadThuePhong">
+    <ElementType Name="LoadThuePhongResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SoGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoNguoiToiDaTrenGiuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoaiPhong" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimRole" Method="TimRole">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="TimRoleResult">
+      <Column Name="Roles" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimTenNV" Method="TimTenNV">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="TimTenNVResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Matkhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDChucDanh" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeletePhieuThue" Method="DeletePhieuThue">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertPhieuThue" Method="InsertPhieuThue">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDKhachHang" Parameter="iDKhachHang" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDPhong" Parameter="iDPhong" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="NgayThue" Parameter="ngayThue" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="TienCoc" Parameter="tienCoc" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="TinhTrang" Parameter="tinhTrang" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDNhanVien" Parameter="iDNhanVien" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadPhieuThue" Method="LoadPhieuThue">
+    <ElementType Name="LoadPhieuThueResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TienCoc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimPhieuThue" Method="TimPhieuThue">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimPhieuThueResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TienCoc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdatePhieuThue" Method="UpdatePhieuThue">
+    <Parameter Name="ID" Parameter="iD" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDKhachHang" Parameter="iDKhachHang" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDPhong" Parameter="iDPhong" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="NgayThue" Parameter="ngayThue" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="TienCoc" Parameter="tienCoc" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="TinhTrang" Parameter="tinhTrang" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDNhanVien" Parameter="iDNhanVien" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.MaxID" Method="MaxID">
+    <ElementType Name="MaxIDResult">
+      <Column Name="" Member="Column1" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKe" Method="ThongKe">
+    <Parameter Name="tu" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="den" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="ThongKeResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TienCoc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.LoadTheoIDThue" Method="LoadTheoIDThue">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="LoadTheoIDThueResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TenPhong" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TienCoc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertPDV" Method="InsertPDV">
+    <Parameter Name="TongTien" Parameter="tongTien" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="NgayLap" Parameter="ngayLap" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="GhiChu" Parameter="ghiChu" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="IDPhieuThue" Parameter="iDPhieuThue" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDNhanVien" Parameter="iDNhanVien" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.TimNVXoa" Method="TimNVXoa">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="TimNVXoaResult">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Matkhau" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IDChucDanh" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.XoaPDV" Method="XoaPDV">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadPDV" Method="LoadPDV">
+    <ElementType Name="LoadPDVResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPhieuThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Ten" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="GhiChu1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SuaPhong" Method="SuaPhong">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertHoaDon" Method="InsertHoaDon">
+    <Parameter Name="TongTien" Parameter="tongTien" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="NgayThanhToan" Parameter="ngayThanhToan" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="IDThue" Parameter="iDThue" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDDichVu" Parameter="iDDichVu" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDNhanVien" Parameter="iDNhanVien" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ThemHoaDon" Method="ThemHoaDon">
+    <Parameter Name="TongTien" Parameter="tongTien" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="NgayThanhToan" Parameter="ngayThanhToan" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="IDThue" Parameter="iDThue" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="IDNhanVien" Parameter="iDNhanVien" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteHoaDon" Method="DeleteHoaDon">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LoadHoaDon" Method="LoadHoaDon">
+    <ElementType Name="LoadHoaDonResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IDThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDDichVu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.LoadRp" Method="LoadRp">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="LoadRpResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TienDichVu" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThue" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IDPhong" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.TimHoaDon" Method="TimHoaDon">
+    <Parameter Name="id" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="TimHoaDonResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IDThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDDichVu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ThongKeHoaDon" Method="ThongKeHoaDon">
+    <Parameter Name="tu" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="den" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="ThongKeHoaDonResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IDThue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IDDichVu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
